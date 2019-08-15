@@ -54,7 +54,7 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
                 print(error.localizedDescription)
             } else {
                 print("ログイン成功")
-//                self.performSegue(withIdentifier: "toChat", sender: nil)
+                self.performSegue(withIdentifier: "toChat", sender: nil)
             }
         }
     }
