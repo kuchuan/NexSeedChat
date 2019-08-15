@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
@@ -14,17 +16,45 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+        GIDSignIn.sharedInstance()?.delegate = self
+        
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+
+extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        //エラーの確認をする（そもそも機能のエラー）
+        //オプショナルバインディングで上記のError!
+        if let error = error {
+            // errorがnilでない場合（エラーがある場合）
+            print("Google Sing Inでエラーが発生しました")
+            print(error.localizedDescription) //エラーの情報がわかる
+            return //処理の中断
+        }
+        
+        //GooglesignInの準備（トークンの取得、ユーザー情報音取得･･･SNSで認証するときに）
+        //ユーザー情報取得（下記のuserにはすでにユーザーがｓ入っている）
+        let authentication = user.authentication
+        //Googleのトークンの取得
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication!.idToken, accessToken: authentication!.accessToken)
+        
+        //Googleでログインする。firebaseににログイン情報を書き込む
+        Auth.auth().signIn(with: credential) { (authDataResoult, error) in
+            
+            if let error = error {
+                print("失敗")
+                print(error.localizedDescription)
+            } else {
+                print("成功")
+                self.performSegue(withIdentifier: "toHome", sender: nil)
+            }
+        }
     }
-    */
-
+    
+    
 }
