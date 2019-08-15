@@ -6,4 +6,15 @@
 //  Copyright © 2019 堀川浩二. All rights reserved.
 //
 
-import Foundation
+
+struct ChatUser {
+
+    //　ユーザーにふられた固有ID
+    let uid: String
+    
+    //なまえ
+    let name: String
+    
+    //profileURL
+    let photoUrl: String
+}
