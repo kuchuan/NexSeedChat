@@ -16,8 +16,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        GIDSignIn.sharedInstance()?.uiDelegate = self
-        GIDSignIn.sharedInstance()?.delegate = self
+//        GIDSignIn.sharedInstance()?.uiDelegate = self
+//        GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
         
     }
     
@@ -28,6 +30,7 @@ class LoginViewController: UIViewController {
 extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
+        //ここはネットに書いてある！
         //エラーの確認をする（そもそも機能のエラー）
         //オプショナルバインディングで上記のError!
         if let error = error {
@@ -47,11 +50,11 @@ extension LoginViewController: GIDSignInDelegate, GIDSignInUIDelegate {
         Auth.auth().signIn(with: credential) { (authDataResoult, error) in
             
             if let error = error {
-                print("失敗")
+                print("ログイン失敗")
                 print(error.localizedDescription)
             } else {
-                print("成功")
-                self.performSegue(withIdentifier: "toHome", sender: nil)
+                print("ログイン成功")
+//                self.performSegue(withIdentifier: "toChat", sender: nil)
             }
         }
     }

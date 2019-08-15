@@ -28,7 +28,7 @@
         <!--Login View Controller-->
         <scene sceneID="fHB-C9-x3Y">
             <objects>
-                <viewController id="5A7-te-qAO" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController id="5A7-te-qAO" customClass="LoginViewController" customModule="NexSeedChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SwJ-Tc-xNE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
